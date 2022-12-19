@@ -3,13 +3,13 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
-use App\Models\blog;
+use App\Models\Blog;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
 class BlogController extends Controller{
     public function index(){
-        $blog = blog::get();
+        $blog = Blog::get();
         if(!$blog){
             return response()->json([
                 'status' => false,
@@ -26,7 +26,7 @@ class BlogController extends Controller{
     }
 
     public function show($id){
-        $blog = blog::where('id', $id)->first();
+        $blog = Blog::where('id', $id)->first();
         if(!$blog){
             return response()->json([
                 'status' => false,
@@ -89,7 +89,6 @@ class BlogController extends Controller{
     }
     public function update(Request $request, $id){
         $getData = Blog::where('id', $id)->first();
-
         if(!$getData) return response()->json([
             'message' => 'Blog tidak ditemukan',
             'status' => false,
@@ -127,7 +126,7 @@ class BlogController extends Controller{
             'slug' => $request->slug,
             'isi' => $request->isi,
         ]);
-        
+
         return response()->json([
             'status' => true,
             'message' => 'success',
@@ -141,8 +140,13 @@ class BlogController extends Controller{
         ]);
     }
 
-    public function delete(){
-
+    public function delete($id){
+        Blog::where('id', $id)->delete();
+        return response()->json([
+            'message' => 'Success',
+            'status' => true,
+            'code' => 200,
+            'data' => [],
+        ]);
     }
-
 }
