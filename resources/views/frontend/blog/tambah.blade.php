@@ -40,13 +40,16 @@
       fd.append('img', img)
       fd.append('slug', slug)
       fd.append('isi', isi)
+
       $.ajax({
         url: `http://localhost:8000/api/blog/tambah`,
         method: 'POST',
         data: fd,
         processData: false, //agar data tidak diproses dulu sebelum dikirim
         contentType: false, //di false karena menggunakan form data (FD)
-
+        success : _ => {
+          window.location.href = "http://localhost:8000"
+        }
       })
     }
   </script>
