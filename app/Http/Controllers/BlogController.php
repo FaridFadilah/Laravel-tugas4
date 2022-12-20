@@ -42,6 +42,7 @@ class BlogController extends Controller{
         if($request->hasFile('img')){
             $imgFile = $request->file('img');
             $imgName = time() . '-' . $imgFile->hashName();
+            $path = $request->getSchemeAndHttpHost() . "/foto/" . $imgFile;
             $imgFile->move('img/', $imgName);
         } else{
             $imgName = "default.jpg";

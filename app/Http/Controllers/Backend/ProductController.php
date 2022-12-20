@@ -31,18 +31,29 @@ class ProductController extends Controller{
         ]);
     }
     public function store(Request $request){
+        $getAll = $request->all();
         $request->validate([
             'nama' => ['required'],
             'deskripsi' => ['required'],
-            'img' => ['required'],
+            'img' => ['required', 'image'],
             'harga' => ['required'],
         ]);
-        Product::create($request->all());
+        
+        if($request->hasFile('img')){
+            $imgFile = $request->file('img');
+            $imgName = time() . '-' . $imgFile->hashName();
+            $imgFile->move('img/', $imgName);
+            $getAll['img'] = $imgName;
+        } else{
+            $imgName = "default.jpg";
+        }
+
+        Product::create($getAll);
         return response()->json([
             'message' => 'success',
             'status' => true,
             'code' => 200,
-            'data' => $request->all(),
+            'data' => $getAll,
         ]);
     }
 

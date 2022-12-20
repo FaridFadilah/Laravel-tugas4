@@ -7,16 +7,17 @@
   <title>blog</title>
 </head>
 <body>
-  <a href="http://localhost:8000/blog/tambah">tambah blog</a>
-  <a href="http://localhost:8000/product/">product</a>
+  
+  <a href="http://localhost:8000/product/tambah">tambah product</a>
+  <a href="http://localhost:8000/product/">blog</a>
   <a href="http://localhost:8000/blog/">blog</a>
   <table border='5'>
     <thead>
       <tr>
         <th>Nama</th>
         <th>img</th>
-        <th>slug</th>
-        <th>isi</th>
+        <th>deskripsi</th>
+        <th>harga</th>
         <th>aksi</th>
       </tr>
     </thead>
@@ -25,35 +26,35 @@
   <script src="https://code.jquery.com/jquery-3.6.2.min.js"></script>
   <script>
     
-    function deleteBlog(id) {
+    function deleteProduct(id) {
       $.ajax({
-        url: `http://localhost:8000/api/blog/delete/${id}`,
+        url: `http://localhost:8000/api/product/delete/${id}`,
         method: "DELETE",
         dataType: "json",
         success: _ => {
           console.log("SUCCESS")
-          window.location.href = ""
+          window.location.href = "http://localhost:8000/api/product/"
         }
       })
     }
 
     $.ajax({
-      url: 'http://localhost:8000/api/blog',
+      url: 'http://localhost:8000/api/product',
       method: 'GET',
       dataType: 'json',
       success: response => {
-        let listBlog = response.data
+        let listproduct = response.data
         let htmlString = ''
-        for(let blog of listBlog){
+        for(let product of listproduct){
           htmlString += `
           <tr>
-            <th>${blog.nama}</th>
-            <th>${blog.img}</th>
-            <th>${blog.slug}</th>
-            <th>${blog.isi}</th>
+            <th>${product.nama}</th>
+            <th>${product.img}</th>
+            <th>${product.deskripsi}</th>
+            <th>${product.harga}</th>
             <td>
-              <a href="http://localhost:8000/blog/edit/${blog.id}">Detail</a>
-              <button onclick="deleteBlog(${blog.id})">Hapus</button>
+              <a href="http://localhost:8000/product/edit/${product.id}">Detail</a>
+              <button onclick="deleteproduct(${product.id})">Hapus</button>
             </td>
         </tr>`
         }

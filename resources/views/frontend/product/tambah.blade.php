@@ -8,47 +8,46 @@
 </head>
 <body>
   <form action="">
-    <label for="name">Nama</label>
+    <label for="nama">Nama</label>
     <input type="text" id="nama">
+    
+    <label for="deskripsi">deskripsi</label>
+    <textarea id="deskripsi"></textarea>
 
-    <label for="email">gambar</label>
+    <label for="img">img</label>
     <input type="file" id="img">
 
-    <label for="password">slug</label>
-    <input type="text" id="slug">
-
-    <label for="password">isi</label>
-    <textarea type="text" id="isi"></textarea>
-
-    <button onclick="add()">Submit</button>
+    <label for="harga">harga</label>
+    <input type="number" id="harga">
+    <button onclick="tambahBlog()">Submit</button>
   </form>
   <script src="https://code.jquery.com/jquery-3.6.2.min.js"></script>
   <script>
     function tambahBlog(){
       let nama = $('#nama').val()
-      let img = $('#img').prop('files')[0]
-      let slug = $('#slug').val()
-      let isi = $('#isi').val()
-
+      let deskripsi = $('#deskripsi').val()
+      let img = $('#img').val()
+      let harga = $('#harga').val()
+      
       if(nama == '') return alert('nama tidak boleh kosong')
+      if(deskripsi == '') return alert('deskripsi tidak boleh kosong')
       if(img == '') return alert('img tidak boleh kosong')
-      if(slug == '') return alert('slug tidak boleh kosong')
-      if(isi == '') return alert('isi tidak boleh kosong')
+      if(harga == '') return alert('harga tidak boleh kosong')
 
       let fd = new FormData()
       fd.append('nama', nama)
-      fd.append('slug', slug)
-      fd.append('isi', isi)
-      fd.append('img', img.props('files')[0])
+      fd.append('deskripsi', deskripsi)
+      fd.append('img', img.prop('files')[0])
+      fd.append('harga', harga)
 
       $.ajax({
-        url: `http://localhost:8000/api/blog/tambah`,
+        url: 'http://localhost:8000/api/product/tambah',
         method: 'POST',
         data: fd,
         processData: false, //agar data tidak diproses dulu sebelum dikirim
         contentType: false, //di false karena menggunakan form data (FD)
         success : _ => {
-          window.location.href = "http://localhost:8000"
+          window.location.href = "http://localhost:8000/"
         }
       })
     }
