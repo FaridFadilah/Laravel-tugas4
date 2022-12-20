@@ -7,7 +7,7 @@
   <title>blog</title>
 </head>
 <body>
-  
+  <h1>product</h1>
   <a href="http://localhost:8000/product/tambah">tambah product</a>
   <a href="http://localhost:8000/product/">blog</a>
   <a href="http://localhost:8000/blog/">blog</a>
@@ -25,7 +25,6 @@
   </table>
   <script src="https://code.jquery.com/jquery-3.6.2.min.js"></script>
   <script>
-    
     function deleteProduct(id) {
       $.ajax({
         url: `http://localhost:8000/api/product/delete/${id}`,

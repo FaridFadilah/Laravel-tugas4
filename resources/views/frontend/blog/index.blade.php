@@ -7,6 +7,7 @@
   <title>blog</title>
 </head>
 <body>
+  <h1>Blog</h1>
   <a href="http://localhost:8000/blog/tambah">tambah blog</a>
   <a href="http://localhost:8000/product/">product</a>
   <a href="http://localhost:8000/blog/">blog</a>
@@ -48,7 +49,7 @@
           htmlString += `
           <tr>
             <th>${blog.nama}</th>
-            <th>${blog.img}</th>
+            <th><img src='${blog.img}'/></th>
             <th>${blog.slug}</th>
             <th>${blog.isi}</th>
             <td>

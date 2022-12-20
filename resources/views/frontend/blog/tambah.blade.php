@@ -7,7 +7,6 @@
   <title></title>
 </head>
 <body>
-  <form action="">
     <label for="name">Nama</label>
     <input type="text" id="nama">
 
@@ -19,9 +18,7 @@
 
     <label for="password">isi</label>
     <textarea type="text" id="isi"></textarea>
-
-    <button onclick="add()">Submit</button>
-  </form>
+    <button onclick="tambahBlog()">Submit</button>
   <script src="https://code.jquery.com/jquery-3.6.2.min.js"></script>
   <script>
     function tambahBlog(){
@@ -37,19 +34,20 @@
 
       let fd = new FormData()
       fd.append('nama', nama)
+      fd.append('img', img)
       fd.append('slug', slug)
       fd.append('isi', isi)
-      fd.append('img', img.props('files')[0])
 
       $.ajax({
         url: `http://localhost:8000/api/blog/tambah`,
         method: 'POST',
         data: fd,
-        processData: false, //agar data tidak diproses dulu sebelum dikirim
-        contentType: false, //di false karena menggunakan form data (FD)
+        processData: false,
+        contentType: false,
         success : _ => {
-          window.location.href = "http://localhost:8000"
-        }
+          // console.log('success')
+          window.location.href = "http://localhost:8000/blog"
+        } 
       })
     }
   </script>

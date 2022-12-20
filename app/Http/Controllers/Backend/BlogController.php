@@ -43,6 +43,7 @@ class BlogController extends Controller{
     }
 
     public function store(Request $request){
+        $getAll = $request->all();
         $validate = Validator::make($request->all(),[
             'nama' => ['required'],
             'img' => ['required', 'image'],
@@ -63,17 +64,14 @@ class BlogController extends Controller{
         if($request->hasFile('img')){
             $imgFile = $request->file('img');
             $imgName = time() . '-' . $imgFile->hashName();
+            $path = $request->getSchemeAndHttpHost() . "/img/" . $imgName;
             $imgFile->move('img/', $imgName);
+            $getAll['img'] = $path;
         } else{
             $imgName = "default.jpg";
         }
 
-        Blog::create([
-            'nama' => $request->nama,
-            'img' => $imgName,
-            'slug' => $request->slug,
-            'isi' => $request->isi,
-        ]);
+        Blog::create($getAll);
         
         return response()->json([
             'status' => true,
@@ -88,6 +86,7 @@ class BlogController extends Controller{
         ]);
     }
     public function update(Request $request, $id){
+        $getAll = $request->all();
         $getData = Blog::where('id', $id)->first();
         if(!$getData) return response()->json([
             'message' => 'Blog tidak ditemukan',
@@ -112,10 +111,13 @@ class BlogController extends Controller{
             ]);
         }
 
+
         if($request->hasFile('img')){
             $imgFile = $request->file('img');
             $imgName = time() . '-' . $imgFile->hashName();
+            $path = $request->getSchemeAndHttpHost() . "/img/" . $imgName;
             $imgFile->move('img/', $imgName);
+            $getAll['img'] = $path;
         } else{
             $imgName = "default.jpg";
         }

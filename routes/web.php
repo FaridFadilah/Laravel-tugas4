@@ -28,6 +28,7 @@ Route::prefix('blog')->group(function(){
   Route::get('/edit/{id}', fn($id) => view('frontend.blog.edit', compact('id')));
 });
 
+Route::view('/', 'frontend.product.index');
 Route::prefix('product')->group(function(){
   Route::get('/', fn() => view('frontend.product.index'));
   Route::get('/tambah', fn() => view('frontend.product.tambah'));

@@ -32,6 +32,7 @@ class BlogController extends Controller{
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request){
+        $getAll = $request->all();
         $request->validate([
             "nama" => ["required"],
             "slug" => ["required"],
@@ -44,16 +45,12 @@ class BlogController extends Controller{
             $imgName = time() . '-' . $imgFile->hashName();
             $path = $request->getSchemeAndHttpHost() . "/foto/" . $imgFile;
             $imgFile->move('img/', $imgName);
+            $getAll['img'] = $path;
         } else{
             $imgName = "default.jpg";
         }
 
-        Blog::create([
-            "nama" => $request->nama,
-            "isi" => $request->isi,
-            'img' => $imgName,
-            'slug' => $request->slug 
-        ]);
+        Blog::create($getAll);
         return redirect()->route('home')->with('message', "berhasil ditambahkan");
     }
     
