@@ -17,7 +17,7 @@ use App\Http\Controllers\HomePageController;
 |
 */
 
-Route::get('/', HomePageController::class)->name('home');
+// Route::get('/', HomePageController::class)->name('home');
 
 // Route::resource('/product', ProductController::class);
 // Route::resource('/blog', BlogController::class);
@@ -26,6 +26,12 @@ Route::prefix('blog')->group(function(){
   Route::get('/', fn() => view('frontend.blog.index'));
   Route::get('/tambah', fn() => view('frontend.blog.tambah'));
   Route::get('/edit/{id}', fn($id) => view('frontend.blog.edit', compact('id')));
+});
+
+Route::prefix('product')->group(function(){
+  Route::get('/', fn() => view('frontend.product.index'));
+  Route::get('/tambah', fn() => view('frontend.product.tambah'));
+  Route::get('/edit/{id}', fn($id) => view('frontend.product.edit', compact('id')));
 });
 
 // Route::any("/login", [AuthController::class, 'login'])->name('login');

@@ -7,17 +7,33 @@
   <title>blog</title>
 </head>
 <body>
-  <table id="tabel">
+  <table border='5'>
     <thead>
       <tr>
         <th>Nama</th>
+        <th>img</th>
         <th>slug</th>
         <th>isi</th>
+        <th>aksi</th>
       </tr>
     </thead>
+    <tbody id="tabel"></tbody>
   </table>
   <script src="https://code.jquery.com/jquery-3.6.2.min.js"></script>
   <script>
+    
+    function deleteBlog(id) {
+      $.ajax({
+        url: `http://localhost:8000/api/blog/delete/${id}`,
+        method: "DELETE",
+        dataType: "json",
+        success: _ => {
+          console.log("SUCCESS")
+          window.location.href = ""
+        }
+      })
+    }
+
     $.ajax({
       url: 'http://localhost:8000/api/blog',
       method: 'GET',
@@ -32,6 +48,10 @@
             <th>${blog.img}</th>
             <th>${blog.slug}</th>
             <th>${blog.isi}</th>
+            <td>
+              <a href="http://localhost:8000/blog/edit/${blog.id}">Detail</a>
+              <button onclick="deleteBlog(${blog.id})">Hapus</button>
+            </td>
         </tr>`
         }
         html = $.parseHTML(htmlString)
