@@ -122,12 +122,7 @@ class BlogController extends Controller{
             $imgName = "default.jpg";
         }
 
-        $getData->update([
-            'nama' => $request->nama,
-            'img' => $imgName,
-            'slug' => $request->slug,
-            'isi' => $request->isi,
-        ]);
+        $getData->update($getAll);
 
         return response()->json([
             'status' => true,

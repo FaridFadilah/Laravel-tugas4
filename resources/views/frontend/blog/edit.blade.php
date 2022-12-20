@@ -7,17 +7,17 @@
   <title></title>
 </head>
 <body>
-  <form action="">
     <input type="text" id="nama" value="">
     <input type="file" id='img'>
+    <label for="">Slug</label>
     <textarea type="text" id="slug"></textarea>
+    <label for="">isi</label>
     <textarea type="text" id="isi"></textarea>
     <button onclick="editProduct()">Submit</button>
-  </form>
   <script src="https://code.jquery.com/jquery-3.6.2.min.js"></script>
   <script>
     $.ajax({
-      url: `http://localhost:8000/api/blog/{{ $id }}`,
+      url: 'http://localhost:8000/api/blog/edit/{{ $id }}',
       method: 'GET',
       success: response => {
         let blog = response.data
@@ -30,7 +30,7 @@
 
     function editProduct(){
       let nama = $('#nama').val()
-      let img = $('#img').val()
+      let img = $('#img').prop('files')[0]
       let slug = $('#slug').val()
       let isi = $('#isi').val()
 
@@ -46,7 +46,7 @@
       fd.append('isi', isi)
 
       $.ajax({
-        url: 'http://localhost:8000/api/pengguna',
+        url: `http://localhost:8000/api/edit/{{ $id }}`,
         method: 'POST',
         data: fd,
         processData: false,
