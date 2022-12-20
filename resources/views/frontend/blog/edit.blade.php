@@ -17,7 +17,7 @@
   <script src="https://code.jquery.com/jquery-3.6.2.min.js"></script>
   <script>
     $.ajax({
-      url: 'http://localhost:8000/api/blog/{{ $id }}',
+      url: `http://localhost:8000/api/blog/{{ $id }}`,
       method: 'GET',
       success: response => {
         let blog = response.data
